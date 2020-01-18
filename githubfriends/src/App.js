@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import "./App.css";
 
-import UserCard from "./components/userCard";
+import Grid from "./components/Grid";
 import UserPage from "./components/UserPage";
 
 class App extends Component {
@@ -12,34 +12,50 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch("https://api.github.com/users/bsherwood9/followers")
+    fetch("https://api.github.com/users/bsherwood9")
       .then(res => res.json())
-      .then(users => this.setState({ users: users }))
-
-      .catch(err => console.log("The following error occurred", err));
-  }
-  componentDidUpdate(prevState) {
-    if (prevState.users !== this.state.users) {
-      console.log("current state", this.state.users);
-    }
+      .then(data => this.setState({ users: [data] }))
+      .then(() =>
+        fetch(this.state.users[0].followers_url)
+          .then(data => data.json())
+          .then(data =>
+            data.forEach(item =>
+              fetch(item.url)
+                .then(data => data.json())
+                .then(data =>
+                  this.setState({ users: [...this.state.users, data] })
+                )
+            )
+          )
+      );
   }
 
   render() {
     return (
       <div className="App">
-        <header>Welcome to your Github... Hub</header>
-        <Route
-          path="/"
-          render={props => {
-            this.state.users.map(user => (
-              <UserCard {...props} key={user.id} user={user}></UserCard>
-            ));
-          }}
-        />
-        <Route
-          path="/:id"
-          render={props => <UserPage {...props} users={this.users} />}
-        />
+        <nav>
+          <div className="nav-cont">
+            <div className="logo-cont">
+              <img className="logo" src="https://logodix.com/logo/64439.png" />
+              <h1>Brett's Github</h1>
+            </div>
+            <div className="link">
+              <Link to="/">Home</Link>
+            </div>
+          </div>
+        </nav>
+        <div className="container">
+          <Route
+            exact
+            path="/"
+            render={props => <Grid {...props} users={this.state.users} />}
+          />
+          <Route
+            exact
+            path="/:id"
+            render={props => <UserPage {...props} users={this.state.users} />}
+          />
+        </div>
       </div>
     );
   }
