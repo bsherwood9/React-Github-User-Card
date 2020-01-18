@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <>
         <nav>
           <div className="nav-cont">
             <div className="logo-cont">
@@ -56,7 +56,7 @@ class App extends Component {
             render={props => <UserPage {...props} users={this.state.users} />}
           />
         </div>
-      </div>
+      </>
     );
   }
 }

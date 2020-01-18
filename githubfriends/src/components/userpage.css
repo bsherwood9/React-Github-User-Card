@@ -1,0 +1,27 @@
+.top-cont {
+  display: flex;
+  justify-content: space-between;
+}
+.top-cont h1 {
+  text-align: center;
+}
+.crapBox {
+  width: 100%;
+}
+.gitGrid {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.info {
+  width: 50%;
+  padding-top: 8%;
+  text-align: center;
+}
+
+.photoBox {
+  width: 50%;
+}
+.photoBox img {
+  width: 100%;
+}
