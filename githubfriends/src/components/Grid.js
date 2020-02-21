@@ -19,3 +19,4 @@ function routeToUser(props, user) {
   props.history.push(`/${user.id}`);
 }
 export default Grid;
+

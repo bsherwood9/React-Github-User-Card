@@ -1,3 +1,7 @@
+.crapBox {
+  width: 70%;
+  margin: 0 auto;
+}
 .top-cont {
   display: flex;
   justify-content: space-between;
@@ -5,9 +9,7 @@
 .top-cont h1 {
   text-align: center;
 }
-.crapBox {
-  width: 100%;
-}
+
 .gitGrid {
   width: 100%;
   padding: 10px 0;
